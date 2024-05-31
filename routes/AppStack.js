@@ -6,7 +6,7 @@ const Stack = createStackNavigator();
 
 export default function AppStack() {
   return (
-    <Stack.Navigator>
+  <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="AppTabs" component={AppTabs} options={{
         headerShown: false
