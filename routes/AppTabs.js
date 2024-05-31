@@ -10,7 +10,9 @@ function AppTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Placares" component={BoardStack} />
+      <Tab.Screen name="Placares" component={BoardStack} options={{
+        headerShown: false,
+      }}/>
       <Tab.Screen name="Perfil" component={Profile} />
     </Tab.Navigator>
   );
