@@ -3,6 +3,7 @@ import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Card from '../shared/Card';
 import styles from '../shared/styles';
+import Board from './Board';
 
 function Boards({ navigation: { navigate } }) {
 
@@ -12,11 +13,11 @@ function Boards({ navigation: { navigate } }) {
     { id: '3', title: 'Item 3' },
     { id: '4', title: 'Item 4' },
     { id: '5', title: 'Item 5' },
-  ]; //test use files and statee
+  ]; //test use files and stateeitem.title
 
   const renderItem = ({ item }) => (
     <View>
-      <TouchableOpacity style={[styles.container, {width: '100%'}]}>
+      <TouchableOpacity style={[styles.container, {width: '100%'}]} onPress={()=>{navigate('Board', {text: item.title})}}>
         <Card>
           <Text>{item.title}</Text>
         </Card>
