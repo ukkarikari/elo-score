@@ -6,7 +6,7 @@ const StorageScreen = () => {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [score, setScore] = useState('');
-  const { savePlayer, players } = useContext(StorageContext);
+  const { savePlayer, players, clearPlayers } = useContext(StorageContext);
 
   const handleSave = () => {
       const newPlayer = {
@@ -21,6 +21,11 @@ const StorageScreen = () => {
     console.log('printing player list...');
     console.log('player list:', JSON.stringify(players, null, 2));
   };
+
+  const handleClearPlayers = () => {
+    clearPlayers();
+  };
+
 
   return (
     <View style={styles.container}>
@@ -50,7 +55,8 @@ const StorageScreen = () => {
 
      <Button title="REGISTER PLAYER" onPress={handleSave} />
 
-     <Button title="debugPlayerList" onPress={handleDebugPrintList} />
+     <Button title="debugPrintPlayerList" onPress={handleDebugPrintList} />
+     <Button title="debugClearPlayerList" onPress={clearPlayers} />
     </View>
   );
 };
