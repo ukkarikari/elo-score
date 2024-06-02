@@ -1,28 +1,56 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, useTheme } from 'react-native-paper';
+import { Text, Button, useTheme, Card, TextInput } from 'react-native-paper';
 
-function Auth({navigation: {navigate}}) {
+function Auth({ navigation: { navigate } }) {
 
   // colors imported from our theme at shared/theme.js!
   const { colors } = useTheme();
 
-  return (
-  <View style={[styles.container, {backgroundColor: colors.background}]}>
-      <Text 
-        variant='headlineSmall'
-        style={{ color: colors.secondary }}
-      >
-      Home Screen
-      </Text>
+  const handleSave = () => {
+    const newPlayer = {
+      id,
+      name,
+      score: parseInt(score, 10),
+    };
+    savePlayer(newPlayer);
+};
 
-      <Button 
-          mode="contained-tonal"
-          textColor={colors.primary}
-          onPress={() => navigate('AppTabs')}
-      >
-      ACCESS
-      </Button>
+  return (
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+
+      <Card style={{ width: '80%' }}>
+        <Card.Title title={
+          <Text
+            variant='headlineLarge'
+            style={{ color: colors.secondary }}
+          >
+            Elo Score
+          </Text>
+        } />
+        <Card.Content>
+          <TextInput mode='outlined' label={'username'}/>
+          <TextInput mode='outlined' label={'senha'}/>
+        </Card.Content>
+        <Card.Actions>
+          <Button
+            mode="contained-tonal"
+            textColor={colors.primary}
+            onPress={() => navigate('AppTabs')}
+          >
+            Log In
+          </Button>
+          <Button
+            mode="contained-tonal"
+            textColor={colors.primary}
+            onPress={() => navigate('AppTabs')}
+          >
+            Registrar
+          </Button>
+        </Card.Actions>
+      </Card>
+
+
     </View>
   );
 }
@@ -30,8 +58,8 @@ function Auth({navigation: {navigate}}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
 
