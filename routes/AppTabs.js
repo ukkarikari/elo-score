@@ -7,6 +7,8 @@ import { Avatar, BottomNavigation, Card, Text } from 'react-native-paper'
 import HomeStack from './HomeStack'
 import BoardStack from './BoardStack';
 import Profile from '../screens/Profile';
+import StorageScreen from '../screens/StorageScreen';
+import ContextScreen from '../screens/ContextScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,6 +38,8 @@ function AppTabs() {
           tabBarIcon: ()=> <Avatar.Icon icon='account' size={50}/>
         }
       }/>
+      <Tab.Screen name="Storage" component={StorageScreen} />
+      <Tab.Screen name="Context" component={ContextScreen} />
     </Tab.Navigator>
   );
 }
