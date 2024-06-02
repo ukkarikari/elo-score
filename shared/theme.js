@@ -1,22 +1,18 @@
-import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import { MD3DarkTheme} from 'react-native-paper';
+import { DarkTheme } from '@react-navigation/native';
 
-/*
 const theme = {
   ...MD3DarkTheme,
+  ...DarkTheme,
   colors: {
-    ...MD3DarkTheme,
+    ...MD3DarkTheme.colors,
+    ...DarkTheme.colors,
     primary: '#6200ee',
     accent: '#ffbf00',
     background: '#f6f6f6',
 
     Auth_bg: '#222222',
     Auth_text: '#ffffff',
-  },
-};
-  */
-
-const theme = {
-  "colors": {
     "primary": "rgb(220, 184, 255)",
     "onPrimary": "rgb(71, 12, 122)",
     "primaryContainer": "rgb(95, 43, 146)",
@@ -57,7 +53,9 @@ const theme = {
     "surfaceDisabled": "rgba(231, 225, 229, 0.12)",
     "onSurfaceDisabled": "rgba(231, 225, 229, 0.38)",
     "backdrop": "rgba(51, 47, 55, 0.4)"
-  }
-}
+  },
+};
+
+
 
 export default theme;
