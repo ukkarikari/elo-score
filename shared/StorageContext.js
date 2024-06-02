@@ -39,20 +39,19 @@ const StorageProvider = ({ children }) => {
     }
   };
 
-  const deleteStorage = async () => {
+  const clearPlayers = async () => {
     try {
-      
-      const updatedPlayers = [];
-      await AsyncStorage.setItem('@players', JSON.stringify(updatedPlayers));
-      setPlayers(updatedPlayers);
-
+      await AsyncStorage.removeItem('@players');
+      setPlayers([]);
+      console.log(' - - - PLAYER DB CLEARED - - - ');
     } catch (e) {
       console.error(e);
     }
   };
 
+
   return (
-      <StorageContext.Provider value={{ players, savePlayer, deleteStorage }}>
+      <StorageContext.Provider value={{ players, savePlayer, clearPlayers }}>
         {children}
       </StorageContext.Provider>
   );

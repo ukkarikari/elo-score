@@ -6,7 +6,11 @@ const StorageScreen = () => {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [score, setScore] = useState('');
+<<<<<<< HEAD
   const { deleteStorage, savePlayer, players } = useContext(StorageContext);
+=======
+  const { savePlayer, players, clearPlayers } = useContext(StorageContext);
+>>>>>>> refs/remotes/origin/main
 
   const handleSave = () => {
       const newPlayer = {
@@ -25,6 +29,11 @@ const StorageScreen = () => {
     console.log('printing player list...');
     console.log('player list:', JSON.stringify(players, null, 2));
   };
+
+  const handleClearPlayers = () => {
+    clearPlayers();
+  };
+
 
   return (
     <View style={styles.container}>
@@ -54,9 +63,14 @@ const StorageScreen = () => {
 
      <Button title="REGISTER PLAYER" onPress={handleSave} />
 
+<<<<<<< HEAD
      <Button title="debugPlayerList" onPress={handleDebugPrintList} />
 
      <Button title="deleteStorage" onPress={handleDelete} />
+=======
+     <Button title="debugPrintPlayerList" onPress={handleDebugPrintList} />
+     <Button title="debugClearPlayerList" onPress={clearPlayers} />
+>>>>>>> refs/remotes/origin/main
     </View>
   );
 };
