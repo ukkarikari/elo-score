@@ -62,27 +62,22 @@ const StorageProvider = ({ children }) => {
 
   const updateGame = async (id, updatedGameData) => {
     try {
-      // Retrieve the existing games from AsyncStorage
       const storedGamesJSON = await AsyncStorage.getItem('@games');
       let storedGames = [];
       if (storedGamesJSON) {
         storedGames = JSON.parse(storedGamesJSON);
       }
   
-      // Find the index of the game to update
       const indexToUpdate = storedGames.findIndex(game => game.id === id);
   
       if (indexToUpdate !== -1) {
-        // Update the game at the found index with the updated data
         storedGames[indexToUpdate] = { ...storedGames[indexToUpdate], ...updatedGameData };
   
-        // Save the updated games back to AsyncStorage
         await AsyncStorage.setItem('@games', JSON.stringify(storedGames));
   
-        // Optionally, update the state if needed
         setGames(storedGames);
       } else {
-        console.error('Game not found with id: ' + id);
+        console.error(id);
       }
     } catch (error) {
       console.error(error);
