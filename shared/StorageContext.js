@@ -4,18 +4,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const StorageContext = createContext();
 
 const StorageProvider = ({ children }) => {
-  const [players, setPlayers] = useState(null);
+  const [players, setPlayers] = useState([]);
+  const [games, setGames] = useState([]);
 
   useEffect( () => {
   
-      const loadPlayers = async () => {
+      const loadStorage = async () => {
         try {
-          const value = await AsyncStorage.getItem('@players');
+          const playersValue = await AsyncStorage.getItem('@players');
+          const gamesValue = await AsyncStorage.getItem('@games');
 
-          if (value !== null) {
-            setPlayers(JSON.parse(value));
+          if (playersValue !== null) {
+            setPlayers(JSON.parse(playersValue));
           } else {
             setPlayers([]);
+          }
+
+          if (gamesValue !== null) {
+            setPlayers(JSON.parse(gamesValue));
+          } else {
+            setGames([]);
           }
 
         } catch (e) {
@@ -23,7 +31,7 @@ const StorageProvider = ({ children }) => {
         }
     };
 
-  loadPlayers();
+  loadStorage();
   }, []);
 
 
@@ -39,6 +47,19 @@ const StorageProvider = ({ children }) => {
     }
   };
 
+  const saveGame = async (game) => {
+    try {
+      
+      const updatedGames = [...games, game];
+      await AsyncStorage.setItem('@games', JSON.stringify(updatedGames));
+      setPlayers(updatedPlayers);
+
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+
   const clearPlayers = async () => {
     try {
       await AsyncStorage.removeItem('@players');
@@ -49,9 +70,18 @@ const StorageProvider = ({ children }) => {
     }
   };
 
+  const clearGames = async () => {
+    try {
+      await AsyncStorage.removeItem('@games');
+      setGames([]);
+      console.log(' - - - GAMES DB CLEARED - - - ');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
-      <StorageContext.Provider value={{ players, savePlayer, clearPlayers }}>
+      <StorageContext.Provider value={{ players, games, savePlayer, saveGame, clearPlayers, clearGames }}>
         {children}
       </StorageContext.Provider>
   );
