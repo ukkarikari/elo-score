@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import styles from '../shared/styles';
+import { StorageContext } from '../shared/StorageContext';
 
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 
@@ -9,20 +10,17 @@ const LeftContent = props => <Avatar.Icon {...props} icon="podium" />
 
 
 function BoardList({ navigation: { navigate } }) {
+  const {games} = useContext(StorageContext)
 
   const data = [
-    { id: '1', title: 'Board 1' },
-    { id: '2', title: 'Board 2' },
-    { id: '3', title: 'Board 3' },
-    { id: '4', title: 'Board 4' },
-    { id: '5', title: 'Board5' },
+    { id: '1', name: 'Board 1' },
   ]; //test use files and stateeitem.title
 
   const renderItem = ({ item }) => (
     <View>
       <TouchableOpacity style={[styles.container, { width: '100%' }]} onPress={() => { navigate('Board', { text: item.title }) }}>
         <Card style={{width: '100%'}}>
-          <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
+          <Card.Title title={item.name} subtitle="Card Subtitle" left={LeftContent} />
           <Card.Content>
             <Text variant="titleLarge">Card title</Text>
             <Text variant="bodyMedium">Card content</Text>
@@ -42,7 +40,7 @@ function BoardList({ navigation: { navigate } }) {
       <Text variant='titleLarge'>Placares</Text>
       <FlatList
         style={{ width: '100%' }}
-        data={data}
+        data={games}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

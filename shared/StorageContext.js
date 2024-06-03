@@ -52,7 +52,7 @@ const StorageProvider = ({ children }) => {
       
       const updatedGames = [...games, game];
       await AsyncStorage.setItem('@games', JSON.stringify(updatedGames));
-      setPlayers(updatedPlayers);
+      setGames(updatedGames);
 
     } catch (e) {
       console.error(e);
