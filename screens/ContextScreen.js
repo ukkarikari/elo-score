@@ -16,11 +16,11 @@
     return (
       <View style={styles.container}>
         <Text style={styles.text}> PLAYERS: </Text>
-        <FlatList
+        {/* <FlatList
             data={players}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
-        />
+        /> */}
       </View>
     );
   };
