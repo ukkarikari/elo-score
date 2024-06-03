@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { Text, Button, useTheme } from 'react-native-paper';
+import { Text, Button, useTheme, Card } from 'react-native-paper';
+import { StorageContext } from '../shared/StorageContext';
 
 function HomeScreen({navigation: {navigate}}) {
   const {colors} = useTheme();
+  const {loggedUser, players} = useContext(StorageContext)
+
+  console.log(loggedUser)
   return (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.background }}>
-      <Text>Home Screen</Text>
+      <Card style={{width: '80%', padding: 20}}>
+        <Card.Title title={<Text variant='titleLarge'>Olá, {loggedUser.username}!</Text>}/>
+        
+      </Card>
     </View>
   );
 }

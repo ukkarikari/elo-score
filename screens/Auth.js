@@ -5,7 +5,7 @@ import { StorageContext } from "../shared/StorageContext";
 import { SHA256 } from 'crypto-js';
 
 function Auth({ navigation: { navigate } }) {
-  const { savePlayer, players} = useContext(StorageContext);
+  const { savePlayer, players, setLoggedUser } = useContext(StorageContext);
   // colors imported from our theme at shared/theme.js!
   const { colors } = useTheme();
   const [username, setUsername] = useState('')
@@ -21,6 +21,7 @@ function Auth({ navigation: { navigate } }) {
       password
     };
     if (players.some((obj) => obj.username == player.username && obj.password == SHA256(player.password).toString())){
+      setLoggedUser(players.find((obj)=>obj.username == username))
       navigate('AppTabs')
     }
       
@@ -55,6 +56,7 @@ function Auth({ navigation: { navigate } }) {
         player.id = maxId+1
         player.password = SHA256(player.password).toString()
         savePlayer(player)
+        setLoggedUser({username: player.username, id: player.id})
         navigate('AppTabs')
       }
         

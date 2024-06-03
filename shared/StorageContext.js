@@ -6,6 +6,7 @@ const StorageContext = createContext();
 const StorageProvider = ({ children }) => {
   const [players, setPlayers] = useState([]);
   const [games, setGames] = useState([]);
+  const [loggedUser, setLoggedUser] = useState({username: 'user', id:0})
 
   useEffect( () => {
   
@@ -81,7 +82,7 @@ const StorageProvider = ({ children }) => {
   };
 
   return (
-      <StorageContext.Provider value={{ players, games, savePlayer, saveGame, clearPlayers, clearGames }}>
+      <StorageContext.Provider value={{ players, games, loggedUser, savePlayer, saveGame, setLoggedUser, clearPlayers, clearGames }}>
         {children}
       </StorageContext.Provider>
   );
