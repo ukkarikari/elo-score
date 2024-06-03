@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, useTheme, Card, TextInput } from 'react-native-paper';
 import { StorageContext } from "../shared/StorageContext";
+import { SHA256 } from 'crypto-js';
 
 function Auth({ navigation: { navigate } }) {
   const { savePlayer, players} = useContext(StorageContext);
@@ -19,14 +20,21 @@ function Auth({ navigation: { navigate } }) {
       username,
       password
     };
-    if (players.some((obj) => obj.username == player.username && obj.password == player.password))
+    if (players.some((obj) => obj.username == player.username && obj.password == SHA256(player.password).toString())){
       navigate('AppTabs')
-    else if (players.some((obj) => obj.name == player.username))
+    }
+      
+    else if (players.some((obj) =>{
+      console.log(obj.password);
+      console.log(SHA256(player.password));
+      obj.username == player.username} )){
       setWrongPassword(true)
+  
+    }
     else{
       setInvalidUsername(true)
     }
-
+    
   }
 
   const handleRegister = () => {
@@ -34,12 +42,18 @@ function Auth({ navigation: { navigate } }) {
       username,
       password
     };
-    if (!players.some((obj) => obj.name == player.username))
+    if (!players.some((obj) => obj.username == player.username))
       if(username=='')
         setBlankUsername(true)
       if(password=='')
         setBlankPassword(true)
       else{
+        let maxId = 0;
+        players.forEach(element => {
+          if(element.id>maxId) maxId=element.id
+        });
+        player.id = maxId+1
+        player.password = SHA256(player.password).toString()
         savePlayer(player)
         navigate('AppTabs')
       }

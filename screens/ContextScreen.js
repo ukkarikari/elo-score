@@ -8,19 +8,18 @@
   const renderItem = ({ item }) => (
   <View style={styles.item}>
         <Text style={styles.title}>ID: {item.id}</Text>
-        <Text style={styles.title}>NAME: {item.name}</Text>
-        <Text style={styles.title}>SCORE: {item.score}</Text>
+        <Text style={styles.title}>NAME: {item.username}</Text>
       </View>
     );
     
     return (
       <View style={styles.container}>
         <Text style={styles.text}> PLAYERS: </Text>
-        {/* <FlatList
+        <FlatList
             data={players}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
-        /> */}
+        />
       </View>
     );
   };
