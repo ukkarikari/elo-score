@@ -24,12 +24,12 @@ function BoardList({ navigation: { navigate } }) {
         navigate('Board', games.find(obj => obj.id === item.id)) }}>
         <Card style={{width: '100%'}}>
           <Card.Title title={item.name} left={LeftContent} />
-          <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+          <Card.Cover source={require('../assets/banner.jpg')} />
           <Card.Actions>
           <Button
             mode="contained-tonal"
             textColor={colors.primary}
-            onPress={()=>{item.players.push({id: loggedUser.id, score:0});console.log(item); updateGame(item.id, item)}}
+            onPress={()=>{item.players.push({id: loggedUser.id, score:0});updateGame(item.id, item)}}
             disabled={item.players.find((obj)=> obj.id == loggedUser.id)?true:false}
           >
             Entrar

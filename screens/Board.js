@@ -6,27 +6,27 @@ import { StorageContext } from '../shared/StorageContext';
 
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 
-const PodiumIcon = (place) =>{
+const PodiumIcon = (place) => {
   const icon = 'checkbox-blank-circle'
 
-  if(place==1) icon = 'podium-gold'
-  else if(place==1) icon = 'podium-silver'
-  else if(place==1) icon = 'podium-bronze'
-  const LeftContent = props =>{console.log(props); return <Avatar.Icon {...props} icon={icon} />} 
+  if (place == 1) icon = 'podium-gold'
+  else if (place == 1) icon = 'podium-silver'
+  else if (place == 1) icon = 'podium-bronze'
+  const LeftContent = props => { console.log(props); return <Avatar.Icon {...props} icon={icon} /> }
 
   return LeftContent
 }
 
-const LeftContent = props => { return<Avatar.Icon {...props} icon="checkbox-blank-circle" />}
+const LeftContent = props => { return <Avatar.Icon {...props} icon="checkbox-blank-circle" /> }
 
 function Board({ navigation: { navigate }, route }) {
-  const {players} = useContext(StorageContext)
+  const { players } = useContext(StorageContext)
 
   const renderItem = ({ item }) => (
     <View>
       <TouchableOpacity style={[styles.container, { width: '100%' }]} onPress={() => { navigate('Player', { text: item.title }) }}>
-        <Card style={{width: '100%', margin:2}}>
-          <Card.Title title={players.find(obj => obj.id === item.id).name} left={LeftContent} right={()=><Text style={{marginHorizontal:20}}>{item.score}</Text>}/>
+        <Card style={{ width: '100%', margin: 2 }}>
+          <Card.Title title={players.find(obj => obj.id === item.id).username} left={LeftContent} right={() => <Text style={{ marginHorizontal: 20 }}>{item.score}</Text>} />
         </Card>
       </TouchableOpacity>
     </View>
@@ -36,11 +36,16 @@ function Board({ navigation: { navigate }, route }) {
     <View style={{ flex: 1, flexGrow: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green' }}>
       <Text variant='titleLarge'>{route.params.name}</Text>
       <FlatList
-        style={{ width: '100%', padding:10 }}
+        style={{ width: '100%', padding: 10 }}
         data={route.params.players.sort((a, b) => b.score - a.score)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
+      <TouchableOpacity onPress={() => navigate('AddGame', route.params)}>
+        <Card style={{ margin: 10 }}>
+          <Avatar.Icon style={{margin: 10}}size={50} icon='plus' />
+        </Card>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -3,7 +3,7 @@ import BoardList from '../screens/BoardList'
 import Board from '../screens/Board';
 import Player from '../screens/Player';
 import AddBoard from '../screens/AddBoard'
-import AddPlayer from '../screens/AddPlayer';
+import AddGame from '../screens/AddGame';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card, Avatar } from 'react-native-paper';
 
@@ -25,20 +25,10 @@ export default function BoardStack({navigation: {navigate}}) {
           );
         }
       }}/>
-      <Stack.Screen name="Board" component={Board} options={{
-        headerRight: () => {
-          return (
-            <TouchableOpacity onPress={() => navigate('AddPlayer')}>
-              <Card style={{ marginHorizontal: 20 }}>
-                <Avatar.Icon size={40} icon='plus' />
-              </Card>
-            </TouchableOpacity>
-          );
-        }
-      }}/>
+      <Stack.Screen name="Board" component={Board}/>
       <Stack.Screen name="AddBoard" component={AddBoard}></Stack.Screen>
       <Stack.Screen name="Player" component={Player}></Stack.Screen>
-      <Stack.Screen name="AddPlayer" component={AddPlayer}></Stack.Screen>
+      <Stack.Screen name="AddGame" component={AddGame}></Stack.Screen>
     </Stack.Navigator>
   );
 }
