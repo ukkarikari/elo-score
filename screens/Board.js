@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import styles from '../shared/styles';
+import { StorageContext } from '../shared/StorageContext';
 
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 
@@ -19,27 +20,13 @@ const PodiumIcon = (place) =>{
 const LeftContent = props => { return<Avatar.Icon {...props} icon="checkbox-blank-circle" />}
 
 function Board({ navigation: { navigate }, route }) {
-
-  const player = {
-    name: 'Player genérico'
-    
-  }
-
-  const data = [
-    { id: '1', title: 'Player 1', score: 10},
-    { id: '2', title: 'Player 2', score: 12},
-    { id: '3', title: 'player 3', score: 4},
-    { id: '4', title: 'Player 4', score: 3},
-    { id: '5', title: 'Player 5', score: 0},
-  ];
-
-  
+  const {players} = useContext(StorageContext)
 
   const renderItem = ({ item }) => (
     <View>
       <TouchableOpacity style={[styles.container, { width: '100%' }]} onPress={() => { navigate('Player', { text: item.title }) }}>
-        <Card style={{width: '100%'}}>
-          <Card.Title title={item.title} left={LeftContent} right={()=><Text>{item.score}</Text>}/>
+        <Card style={{width: '100%', margin:2}}>
+          <Card.Title title={players.find(obj => obj.id === item.id).name} left={LeftContent} right={()=><Text style={{marginHorizontal:20}}>{item.score}</Text>}/>
         </Card>
       </TouchableOpacity>
     </View>
@@ -47,10 +34,10 @@ function Board({ navigation: { navigate }, route }) {
 
   return (
     <View style={{ flex: 1, flexGrow: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green' }}>
-      <Text variant='titleLarge'>{route.params.text}</Text>
+      <Text variant='titleLarge'>{route.params.name}</Text>
       <FlatList
-        style={{ width: '100%' }}
-        data={data}
+        style={{ width: '100%', padding:10 }}
+        data={route.params.players.sort((a, b) => b.score - a.score)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

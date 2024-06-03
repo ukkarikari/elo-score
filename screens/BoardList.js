@@ -12,13 +12,17 @@ const LeftContent = props => <Avatar.Icon {...props} icon="podium" />
 function BoardList({ navigation: { navigate } }) {
   const {games} = useContext(StorageContext)
 
-  const data = [
-    { id: '1', name: 'Board 1' },
-  ]; //test use files and stateeitem.title
+
+  const players = [
+    {id:2 , score: 0},
+
+  ]
 
   const renderItem = ({ item }) => (
     <View>
-      <TouchableOpacity style={[styles.container, { width: '100%' }]} onPress={() => { navigate('Board', { text: item.title }) }}>
+      <TouchableOpacity style={[styles.container, { width: '100%' }]} onPress={() => { 
+        navigate('Board',{...games.find(obj => obj.id === item.id), players} 
+      /*should pass list inside the item */) }}>
         <Card style={{width: '100%'}}>
           <Card.Title title={item.name} subtitle="Card Subtitle" left={LeftContent} />
           <Card.Content>
