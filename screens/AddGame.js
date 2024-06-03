@@ -11,10 +11,22 @@ const AddPlayer = ({route}) => {
 
 
   const { colors } = useTheme();
-  const {games, updateGame} = useContext(StorageContext)
+  const {games, updateGame, players} = useContext(StorageContext)
 
   const handleRegister = () => {
-    console.log(route.params)
+    const gamePlayers =route.params.players
+
+    if(player1!='' && player2!='' && result!=''){
+      const player1id = players.find(obj=>obj.username==player1).id
+      const player2id = players.find(obj=>obj.username==player2).id
+      console.log(player1id, player2.id)
+      gamePlayers.forEach(obj =>{
+        if(obj.id == player1id) obj.score += parseInt(result)
+        if(obj.id == player2id) obj.score -= parseInt(result)
+      })
+      console.log(gamePlayers)
+      updateGame(route.params.id, {id: route.params.id, name:route.params.name, players: gamePlayers})
+    }
   }
 
   return (
