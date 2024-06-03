@@ -8,8 +8,7 @@
   const renderItem = ({ item }) => (
   <View style={styles.item}>
         <Text style={styles.title}>ID: {item.id}</Text>
-        <Text style={styles.title}>NAME: {item.name}</Text>
-        <Text style={styles.title}>SCORE: {item.score}</Text>
+        <Text style={styles.title}>NAME: {item.username}</Text>
       </View>
     );
     

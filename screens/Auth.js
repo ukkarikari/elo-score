@@ -1,20 +1,65 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button, useTheme, Card, TextInput } from 'react-native-paper';
+import { StorageContext } from "../shared/StorageContext";
+import { SHA256 } from 'crypto-js';
 
 function Auth({ navigation: { navigate } }) {
-
+  const { savePlayer, players} = useContext(StorageContext);
   // colors imported from our theme at shared/theme.js!
   const { colors } = useTheme();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [invalidUsername, setInvalidUsername] = useState(false)
+  const [wrongPassword, setWrongPassword] = useState(false)
+  const [blankPassword, setBlankPassword] = useState(false)
+  const [blankUsername, setBlankUsername] = useState(false)
 
-  const handleSave = () => {
-    const newPlayer = {
-      id,
-      name,
-      score: parseInt(score, 10),
+  const checkLogin = () => {
+    const player = {
+      username,
+      password
     };
-    savePlayer(newPlayer);
-};
+    if (players.some((obj) => obj.username == player.username && obj.password == SHA256(player.password).toString())){
+      navigate('AppTabs')
+    }
+      
+    else if (players.some((obj) =>{
+      console.log(obj.password);
+      console.log(SHA256(player.password));
+      obj.username == player.username} )){
+      setWrongPassword(true)
+  
+    }
+    else{
+      setInvalidUsername(true)
+    }
+    
+  }
+
+  const handleRegister = () => {
+    const player = {
+      username,
+      password
+    };
+    if (!players.some((obj) => obj.username == player.username))
+      if(username=='')
+        setBlankUsername(true)
+      if(password=='')
+        setBlankPassword(true)
+      else{
+        let maxId = 0;
+        players.forEach(element => {
+          if(element.id>maxId) maxId=element.id
+        });
+        player.id = maxId+1
+        player.password = SHA256(player.password).toString()
+        savePlayer(player)
+        navigate('AppTabs')
+      }
+        
+
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -29,21 +74,33 @@ function Auth({ navigation: { navigate } }) {
           </Text>
         } />
         <Card.Content>
-          <TextInput mode='outlined' label={'username'}/>
-          <TextInput mode='outlined' label={'senha'}/>
+          <TextInput
+            mode='outlined'
+            label={(invalidUsername? 'não registrado':(blankUsername? 'username vazio':'username'))}
+            value={username}
+            onChangeText={(text) => {setInvalidUsername(false); setBlankUsername(false); setUsername(text)}}
+            error={invalidUsername|| blankUsername}
+          />
+          <TextInput
+            mode='outlined'
+            label={(wrongPassword?'senha incorreta':(blankPassword? 'senha vazia':'senha'))}
+            value={password}
+            onChangeText={(text) => {setWrongPassword(false); setBlankPassword(false); setPassword(text)}}
+            error={wrongPassword||blankPassword}
+          />
         </Card.Content>
         <Card.Actions>
           <Button
             mode="contained-tonal"
             textColor={colors.primary}
-            onPress={() => navigate('AppTabs')}
+            onPress={checkLogin}
           >
             Log In
           </Button>
           <Button
             mode="contained-tonal"
             textColor={colors.primary}
-            onPress={() => navigate('AppTabs')}
+            onPress={handleRegister}
           >
             Registrar
           </Button>
