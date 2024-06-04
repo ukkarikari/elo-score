@@ -27,9 +27,6 @@ const ProfilePage = () => {
           <Text variant='titleLarge'>Nome</Text>
           <Text variant='bodyLarge'>ID:</Text>
         </View>
-
-
-        <Button mode="contained" style={styles.button}>Edit Profile</Button>
       </View>
 
     </View>

@@ -53,14 +53,6 @@ const AddBoard = ({ navigation: { navigate } }) => {
           >
             Registrar
           </Button>
-
-          <Button
-            mode="contained-tonal"
-            textColor={colors.primary}
-            onPress={clearGames}
-          >
-            nuclear
-          </Button>
         </Card.Actions>
       </Card>
     </View>
