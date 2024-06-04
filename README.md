@@ -1,38 +1,30 @@
 # elo-score
 general use elo scoreboard in react native
 
-### deployment instructions
+### instruções para development deploy 
 
-clone the repo
+clone o repo
 ```git clone https://github.com/ukkarikari/elo-score/ ```
 
-go into folder
+entre na pasta
 
 ```cd elo-score/```
 
-install dependencies
+instale dependências
 
 ```npm install```
 
-run server in expo go
+inicie com expo go
 
 ```npm run start```
 
-## TO DO ITINERARY
-
-### screens
-
-- [ ] auth screens
-- [ ] player screen
-- [ ] profile screen
-- [ ] scoreboard
-- [ ] configuration screen
-- [ ] new player register
-- [ ] home screen
-- [ ] credits (maybe)
-
-### back-end
-
-- [ ] add async storage base and context api
-- [ ] implement ui padronization (react-native-paper)
-- [ ] make elo system
+## bibliotecas utilizadas
+async-storage
+context API
+react-navigation
+react-navigation/stack
+react-navigation/bottom-tabs
+react-native-screens
+crypto-js
+react-native-paper
+react-native-vector-icons
