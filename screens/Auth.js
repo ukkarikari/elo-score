@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Text, Button, useTheme, Card, TextInput, ActivityIndicator } from 'react-native-paper';
 import { MaterialIcons } from "@expo/vector-icons";
 import { StorageContext } from "../shared/StorageContext";
@@ -66,7 +66,8 @@ function Auth({ navigation: { navigate } }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+  <ImageBackground source={require('../assets/bg.gif')} style={styles.background}>
+    <View style={styles.container}>
 
       <Card style={{ width: '80%' }}>
         <Card.Title title={
@@ -116,6 +117,7 @@ function Auth({ navigation: { navigate } }) {
 
 
     </View>
+  </ImageBackground>
   );
 }
 
@@ -124,7 +126,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
 });
 
 export default Auth;
