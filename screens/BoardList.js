@@ -13,11 +13,6 @@ function BoardList({ navigation: { navigate } }) {
   const {games, updateGame, loggedUser} = useContext(StorageContext)
   const { colors } = useTheme();
 
-  const players = [
-    {id:2 , score: 0},
-
-  ]
-
   const renderItem = ({ item }) => (
     <View>
       <TouchableOpacity style={[styles.container, { width: '100%' }]} onPress={() => { 
@@ -29,7 +24,7 @@ function BoardList({ navigation: { navigate } }) {
           <Button
             mode="contained-tonal"
             textColor={colors.primary}
-            onPress={()=>{item.players.push({id: loggedUser.id, score:0});updateGame(item.id, item)}}
+            onPress={()=>{item.players.push({id: loggedUser.id, score:1500});updateGame(item.id, item)}}
             disabled={item.players.find((obj)=> obj.id == loggedUser.id)?true:false}
           >
             Entrar

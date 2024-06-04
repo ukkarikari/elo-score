@@ -4,28 +4,43 @@ import { Card, TextInput, Text, Button, useTheme } from 'react-native-paper';
 import styles from '../shared/styles';
 import { StorageContext } from '../shared/StorageContext';
 
-const AddPlayer = ({route}) => {
+const AddPlayer = ({ route, navigation }) => {
   const [result, setResult] = useState('')
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
+  const [invalidPlayer1, setInvalidPlayer1] = useState('')
+  const [invalidPlayer2, setInvalidPlayer2] = useState('')
 
 
   const { colors } = useTheme();
-  const {games, updateGame, players} = useContext(StorageContext)
+  const { games, updateGame, players } = useContext(StorageContext)
 
   const handleRegister = () => {
-    const gamePlayers =route.params.players
+    const gamePlayers = route.params.players
 
-    if(player1!='' && player2!='' && result!=''){
-      const player1id = players.find(obj=>obj.username==player1).id
-      const player2id = players.find(obj=>obj.username==player2).id
-      console.log(player1id, player2.id)
-      gamePlayers.forEach(obj =>{
-        if(obj.id == player1id) obj.score += parseInt(result)
-        if(obj.id == player2id) obj.score -= parseInt(result)
-      })
-      console.log(gamePlayers)
-      updateGame(route.params.id, {id: route.params.id, name:route.params.name, players: gamePlayers})
+    if (player1 != '' && player2 != '' && result != '') {
+      const player1db = players.find(obj => obj.username == player1)
+      const player2db = players.find(obj => obj.username == player2)
+
+      if (player1db == undefined)
+        setInvalidPlayer1(true)
+      if (player2db == undefined)
+        setInvalidPlayer2(true)
+
+      if (player1db != undefined && player2db != undefined) {
+        const player1id = players.find(obj => obj.username == player1).id
+        const player2id = players.find(obj => obj.username == player2).id
+
+        gamePlayers.forEach(obj => {
+          if (obj.id == player1id) obj.score += parseInt(result)
+          if (obj.id == player2id) obj.score -= parseInt(result)
+        })
+        console.log(gamePlayers)
+        updateGame(route.params.id, { id: route.params.id, name: route.params.name, players: gamePlayers })
+        navigation.goBack()
+      }
+
+
     }
   }
 
@@ -36,16 +51,18 @@ const AddPlayer = ({route}) => {
 
         <TextInput
           mode='outlined'
-          label={'player 1'}
+          label={invalidPlayer1? 'nome invalido':'player 1'}
           value={player1}
-          onChangeText={(text) => { setPlayer1(text) }}
+          onChangeText={(text) => { setInvalidPlayer1(false); setPlayer1(text) }}
+          error={invalidPlayer1}
         />
         <Text variant='bodyLarge'>    X</Text>
         <TextInput
           mode='outlined'
-          label={'player 2'}
+          label={invalidPlayer2? 'nome invalido':'player 2'}
           value={player2}
-          onChangeText={(text) => { setPlayer2(text) }}
+          onChangeText={(text) => { setInvalidPlayer2(false); setPlayer2(text) }}
+          error={invalidPlayer2}
         />
         <Text variant='bodyLarge'>    </Text>
         <TextInput
