@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, useTheme, Card, TextInput } from 'react-native-paper';
+import { Text, Button, useTheme, Card, TextInput, ActivityIndicator } from 'react-native-paper';
+import { MaterialIcons } from "@expo/vector-icons";
 import { StorageContext } from "../shared/StorageContext";
 import { SHA256 } from 'crypto-js';
 
@@ -14,6 +15,7 @@ function Auth({ navigation: { navigate } }) {
   const [wrongPassword, setWrongPassword] = useState(false)
   const [blankPassword, setBlankPassword] = useState(false)
   const [blankUsername, setBlankUsername] = useState(false)
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const checkLogin = () => {
     const player = {
@@ -89,10 +91,12 @@ function Auth({ navigation: { navigate } }) {
             value={password}
             onChangeText={(text) => {setWrongPassword(false); setBlankPassword(false); setPassword(text)}}
             error={wrongPassword||blankPassword}
+            secureTextEntry={!isPasswordVisible}
           />
         </Card.Content>
         <Card.Actions>
           <Button
+            icon={() => <MaterialIcons name="login" size={24} color="white"/>}
             mode="contained-tonal"
             textColor={colors.primary}
             onPress={checkLogin}
@@ -100,6 +104,7 @@ function Auth({ navigation: { navigate } }) {
             Log In
           </Button>
           <Button
+            icon={() => <MaterialIcons name="person-add" size={24} color="white" />}
             mode="contained-tonal"
             textColor={colors.primary}
             onPress={handleRegister}

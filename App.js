@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from "react";
 import { NavigationContainer} from '@react-navigation/native';
-import { PaperProvider, Button } from 'react-native-paper';
+import { PaperProvider, Button } from 'react-native-paper'
 
 
 import Navigator from './routes/AppStack'

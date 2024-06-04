@@ -4,7 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import styles from '../shared/styles';
 import { StorageContext } from '../shared/StorageContext';
 
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { Avatar, Button, Card, Text, useTheme } from 'react-native-paper';
 
 const PodiumIcon = (place) => {
   const icon = 'checkbox-blank-circle'
@@ -21,6 +21,7 @@ const LeftContent = props => { return <Avatar.Icon {...props} icon="checkbox-bla
 
 function Board({ navigation: { navigate }, route }) {
   const { players } = useContext(StorageContext)
+  const { colors } = useTheme();
 
   const renderItem = ({ item }) => (
     <View>
@@ -33,7 +34,7 @@ function Board({ navigation: { navigate }, route }) {
   );
 
   return (
-    <View style={{ flex: 1, flexGrow: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green' }}>
+    <View style={{ flex: 1, flexGrow: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backdrop }}>
       <Text variant='titleLarge'>{route.params.name}</Text>
       <FlatList
         style={{ width: '100%', padding: 10 }}

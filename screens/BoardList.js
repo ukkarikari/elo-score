@@ -41,7 +41,7 @@ function BoardList({ navigation: { navigate } }) {
   );
 
   return (
-    <View style={{ flex: 1, flexGrow: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green' }}>
+    <View style={{ flex: 1, flexGrow: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backdrop }}>
       <Text variant='titleLarge'>Placares</Text>
       <FlatList
         style={{ width: '100%' }}
