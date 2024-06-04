@@ -20,11 +20,20 @@ inicie com expo go
 
 ## bibliotecas utilizadas
 async-storage
+
 context API
+
 react-navigation
+
 react-navigation/stack
+
 react-navigation/bottom-tabs
+
 react-native-screens
+
 crypto-js
+
 react-native-paper
+
 react-native-vector-icons
+
