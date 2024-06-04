@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { View } from 'react-native';
 import { Avatar, Button, Text, useTheme } from 'react-native-paper';
 import styles from '../shared/styles';
+import { StorageContext } from '../shared/StorageContext';
 
 const ProfilePage = () => {
   const theme = useTheme();
   const [profilePicture, setProfilePicture] = useState(null);
+
+  const {loggedUser} = useContext(StorageContext)
 
   useEffect(() => {
 
@@ -24,8 +27,8 @@ const ProfilePage = () => {
       <View style={[styles.container, { backgroundColor: theme.colors.surface }]}>
         <Avatar.Image size={100} source={profilePicture} />
         <View style={ {backgroundColor: theme.colors.surface, width: '100%', margin: '5%'}}>
-          <Text variant='titleLarge'>Nome</Text>
-          <Text variant='bodyLarge'>ID:</Text>
+          <Text variant='titleLarge'>{loggedUser.username}</Text>
+          <Text variant='bodyLarge'>ID:{loggedUser.id}</Text>
         </View>
       </View>
 
