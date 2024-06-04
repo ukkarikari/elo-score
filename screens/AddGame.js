@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Card, TextInput, Text, Button, useTheme } from 'react-native-paper';
 import styles from '../shared/styles';
 import { StorageContext } from '../shared/StorageContext';
+import { getNewRating } from '../shared/Elo';
 
 const AddPlayer = ({ route, navigation }) => {
   const [result, setResult] = useState('')
@@ -16,7 +17,7 @@ const AddPlayer = ({ route, navigation }) => {
   const { games, updateGame, players } = useContext(StorageContext)
 
   const handleRegister = () => {
-    const gamePlayers = route.params.players
+    let gamePlayers = route.params.players
 
     if (player1 != '' && player2 != '' && result != '') {
       const player1db = players.find(obj => obj.username == player1)
@@ -31,11 +32,21 @@ const AddPlayer = ({ route, navigation }) => {
         const player1id = players.find(obj => obj.username == player1).id
         const player2id = players.find(obj => obj.username == player2).id
 
+        let player1score = 0;
+        let player2score = 0;
+
         gamePlayers.forEach(obj => {
-          if (obj.id == player1id) obj.score += parseInt(result)
-          if (obj.id == player2id) obj.score -= parseInt(result)
+          if (obj.id == player1id) player1score = obj.score 
+          if (obj.id == player2id) player2score = obj.score
         })
-        console.log(gamePlayers)
+
+        gamePlayers.forEach(obj => {
+          if (obj.id == player1id) obj.score = getNewRating(parseInt(player1score), parseInt(player2score), parseInt(result))
+          if (obj.id == player2id) obj.score = getNewRating(parseInt(player2score), parseInt(player1score), 1-parseInt(result))
+        })
+
+        console.log('hi', player1id, gamePlayers)
+
         updateGame(route.params.id, { id: route.params.id, name: route.params.name, players: gamePlayers })
         navigation.goBack()
       }
