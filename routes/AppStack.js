@@ -16,6 +16,8 @@ export default function AppStack() {
       <Stack.Screen name="AppTabs" component={AppTabs} options={{
         headerShown: false
       }}/>
+      <Stack.Screen name="StorageScreen" component={StorageScreen}/>
+      <Stack.Screen name="ContextScreen" component={ContextScreen}/>
     </Stack.Navigator>
   </StorageProvider>
   );

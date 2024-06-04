@@ -1,25 +1,28 @@
-  import React, { useContext } from "react";
-  import { View, Text, StyleSheet, FlatList } from 'react-native';
-  import { StorageContext } from "../shared/StorageContext";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { StorageContext } from "../shared/StorageContext";
+import { Card, Title, Paragraph } from 'react-native-paper';
 
-  const ContextScreen = () => {
-    const { players } = useContext(StorageContext);
 
-  const renderItem = ({ item }) => (
-  <View style={styles.item}>
-        <Text style={styles.title}>ID: {item.id}</Text>
-        <Text style={styles.title}>NAME: {item.username}</Text>
-      </View>
-    );
+const ContextScreen = () => {
+const { players } = useContext(StorageContext);
+
+const renderPlayer = ( player ) => (
+  <Card key={player.id} style={styles.card}>
+    <Card.Content>
+        <Title>ID: {player.id}</Title>
+        <Title>NAME: {player.name} </Title>
+    </Card.Content>
+  </Card>
+  );
+
     
     return (
       <View style={styles.container}>
         <Text style={styles.text}> PLAYERS: </Text>
-        <FlatList
-            data={players}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
-        />
+        <View style={styles.cardsContainer}>
+          {players.map(renderPlayer)}
+        </View>
       </View>
     );
   };

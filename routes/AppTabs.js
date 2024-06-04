@@ -38,8 +38,6 @@ function AppTabs() {
           tabBarIcon: ()=> <Avatar.Icon icon='account' size={50}/>
         }
       }/>
-      <Tab.Screen name="Storage" component={StorageScreen} />
-      <Tab.Screen name="Context" component={ContextScreen} />
     </Tab.Navigator>
   );
 }
